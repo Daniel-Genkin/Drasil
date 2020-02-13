@@ -19,9 +19,13 @@ import Language.Drasil.Code (generator, generateCode, Choices(..), CodeSpec(..),
 
 import GOOL.Drasil (unJC, unPC, unCSC, unCPPC)
 
+import GHC.IO.Encoding (setLocaleEncoding, utf8)
+
 -- | Generate a number of artifacts based on a list of recipes.
 gen :: DocSpec -> Document -> PrintingInformation -> IO ()
-gen ds fn sm = prnt sm ds fn
+gen ds fn sm = do
+  setLocaleEncoding utf8
+  prnt sm ds fn
 
 -- | Generate the output artifacts (TeX+Makefile or HTML)
 prnt :: PrintingInformation -> DocSpec -> Document -> IO ()
